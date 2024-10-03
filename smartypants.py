@@ -283,6 +283,9 @@ def smartypants(text, attr=None):
                         # Normal case:
                         t = convert_quotes(t)
 
+                if do_dashes:
+                    t = re.sub(' ((&#821[12];)|—|–)', '&#160;\\1', t)
+
                 if do_entities:
                     mode = (0 if do_entities == Attr.u else
                             1 if do_entities == Attr.h else
