@@ -1,10 +1,13 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+# Copyright (c) 2024 Vladislav Javadov
 # Copyright (c) 2017 Leo Hemsted
 # Copyright (c) 2013, 2014, 2016 Yu-Jie Lin
 # Copyright (c) 2004, 2005, 2007, 2013 Chad Miller
 # Copyright (c) 2003 John Gruber
 # Licensed under the BSD License, for detailed license information, see COPYING
+
+# Russian quotes, non-breaking space before dashes
 
 """
 smartypants module
@@ -371,7 +374,7 @@ def convert_quotes(text):
             "                 # the quote
             (?=\w)            # followed by a word character
             """ % (dec_dashes,), re.VERBOSE)
-    text = opening_double_quotes_regex.sub(r'\1&#8220;', text)
+    text = opening_double_quotes_regex.sub(r'\1&#171;', text)
 
     # Double closing quotes:
     closing_double_quotes_regex = re.compile(r"""
@@ -379,16 +382,16 @@ def convert_quotes(text):
             "
             (?=\s)
             """ % (close_class,), re.VERBOSE)
-    text = closing_double_quotes_regex.sub('&#8221;', text)
+    text = closing_double_quotes_regex.sub('&#187;', text)
 
     closing_double_quotes_regex = re.compile(r"""
             (%s)   # character that indicates the quote should be closing
             "
             """ % (close_class,), re.VERBOSE)
-    text = closing_double_quotes_regex.sub(r'\1&#8221;', text)
+    text = closing_double_quotes_regex.sub(r'\1&#187;', text)
 
     # Any remaining quotes should be opening ones.
-    text = re.sub('"', '&#8220;', text)
+    text = re.sub('"', '&#171;', text)
 
     return text
 
